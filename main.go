@@ -7,6 +7,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/joho/godotenv"
 )
 
 // @title Fiber Example API
@@ -22,6 +23,9 @@ import (
 func main() {
 	app := fiber.New()
 	PORT := ":3000"
+	if err := godotenv.Load(); err != nil {
+		log.Fatal("Error loading .env file")
+	}
 	middleware.Init(app)
 	routes.RegisterAppRoutes(app)
 	routes.RegisterAPIRoutes(app)

@@ -11,6 +11,7 @@ require (
 	github.com/go-ozzo/ozzo-validation v3.6.0+incompatible
 	github.com/go-ozzo/ozzo-validation/v4 v4.3.0
 	github.com/gofiber/fiber/v2 v2.2.0
+	github.com/joho/godotenv v1.3.0
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/swaggo/swag v1.6.9 // indirect
 	github.com/urfave/cli/v2 v2.3.0 // indirect

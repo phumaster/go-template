@@ -20,7 +20,6 @@ func Init(app *fiber.App) {
 		MaxAge:           0,
 	}))
 	app.Use(limiter.New(limiter.Config{
-		Duration:   30 * time.Second,
 		Max:        120,
 		Expiration: 1 * time.Minute,
 		Next: func(c *fiber.Ctx) bool {
