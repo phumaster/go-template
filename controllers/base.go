@@ -6,6 +6,12 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
+// HTTPResponse swagger response defination
+type HTTPResponse struct {
+	Code    int    `json:"code"`
+	Message string `json:"message"`
+}
+
 // Base is parent controller
 type Base struct{}
 

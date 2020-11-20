@@ -10,12 +10,12 @@ import (
 	"github.com/joho/godotenv"
 )
 
-// @title Fiber Example API
+// @title Go template API
 // @version 1.0
-// @description This is a sample swagger for Fiber
+// @description This is a Go template using Fiber
 // @termsOfService http://swagger.io/terms/
-// @contact.name API Support
-// @contact.email fiber@swagger.io
+// @contact.name phumaster
+// @contact.email phumaster.dev@gmail.com
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
 // @host localhost:3000

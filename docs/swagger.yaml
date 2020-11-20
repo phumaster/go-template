@@ -1,5 +1,32 @@
 basePath: /
 definitions:
+  controllers.CreateUserRequest:
+    properties:
+      email:
+        type: string
+      name:
+        type: string
+      password:
+        type: string
+    type: object
+  controllers.UserResponseError:
+    properties:
+      code:
+        type: integer
+      data:
+        type: string
+      message:
+        type: string
+    type: object
+  controllers.UserResponseSuccess:
+    properties:
+      code:
+        type: integer
+      data:
+        $ref: '#/definitions/models.User'
+      message:
+        type: string
+    type: object
   models.User:
     properties:
       created_at:
@@ -18,16 +45,45 @@ definitions:
 host: localhost:3000
 info:
   contact:
-    email: fiber@swagger.io
-    name: API Support
-  description: This is a sample swagger for Fiber
+    email: phumaster.dev@gmail.com
+    name: phumaster
+  description: This is a Go template using Fiber
   license:
     name: Apache 2.0
     url: http://www.apache.org/licenses/LICENSE-2.0.html
   termsOfService: http://swagger.io/terms/
-  title: Fiber Example API
+  title: Go template API
   version: "1.0"
 paths:
+  /api/user/{ID}:
+    get:
+      consumes:
+      - application/json
+      description: Get detail user by ID
+      parameters:
+      - description: User ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.UserResponseSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.UserResponseError'
+        "419":
+          description: Too many request
+          schema:
+            type: string
+      summary: Get detail user by ID
+      tags:
+      - User
   /api/user/create:
     post:
       consumes:
@@ -39,14 +95,22 @@ paths:
         name: user
         required: true
         schema:
-          $ref: '#/definitions/models.User'
+          $ref: '#/definitions/controllers.CreateUserRequest'
       produces:
       - application/json
       responses:
         "200":
           description: OK
           schema:
-            $ref: '#/definitions/models.User'
+            $ref: '#/definitions/controllers.UserResponseSuccess'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.UserResponseError'
+        "419":
+          description: Too many request
+          schema:
+            type: string
       summary: Create an user
       tags:
       - User

@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"go-template/models"
 	"go-template/services"
 	"go-template/utils"
 	"strconv"
@@ -22,6 +23,18 @@ type CreateUserRequest struct {
 	Password string `json:"password"`
 }
 
+// UserResponseSuccess swagger response
+type UserResponseSuccess struct {
+	HTTPResponse
+	Data models.User `json:"data"`
+}
+
+// UserResponseError swagger response
+type UserResponseError struct {
+	HTTPResponse
+	Data string `json:",omitempty"`
+}
+
 // ValidateCreateRequest method
 func (p CreateUserRequest) ValidateCreateRequest() error {
 	return validation.ValidateStruct(&p,
@@ -33,7 +46,17 @@ func (p CreateUserRequest) ValidateCreateRequest() error {
 
 var service = (*services.UserService)(nil)
 
-// GetByID method
+// GetByID godoc
+// @Summary Get detail user by ID
+// @Description Get detail user by ID
+// @Tags User
+// @Accept  json
+// @Produce  json
+// @Param ID path int true "User ID"
+// @Success 200 {object} UserResponseSuccess
+// @Success 400 {object} UserResponseError
+// @Success 419 {string} string "Too many request"
+// @Router /api/user/{ID} [get]
 func (u *UserController) GetByID(c *fiber.Ctx) error {
 	ID, err := strconv.Atoi(c.Params("ID"))
 	if err != nil {
@@ -52,8 +75,10 @@ func (u *UserController) GetByID(c *fiber.Ctx) error {
 // @Tags User
 // @Accept  json
 // @Produce  json
-// @Param user body models.User true "Add user"
-// @Success 200 {object} models.User
+// @Param user body CreateUserRequest true "Add user"
+// @Success 200 {object} UserResponseSuccess
+// @Success 400 {object} UserResponseError
+// @Success 419 {string} string "Too many request"
 // @Router /api/user/create [post]
 func (u *UserController) Create(c *fiber.Ctx) error {
 	params := CreateUserRequest{}
